@@ -1,1 +1,1 @@
-Flask==0.12.2line-bot-sdk==1.8.0
+Flask==1.1.1line-bot-sdk==1.8.0
