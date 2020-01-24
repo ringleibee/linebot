@@ -52,28 +52,9 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 
-    profile = line_bot_api.get_profile(event.source.user_id)
-
-    conrifm_template_message = TemplateSendMessage(
-        alt_text='Confirm template',
-        template=Confirmtemplate(
-            text=profile.display_name+'さん\n元気？',
-            actions=[
-                PostbackAction(
-                    label='うん',
-                    data='うん'
-                ),
-
-                MessageAction(
-                    label='のー',
-                    text='No'
-                )
-            ]
-        )
-    )
 
     word = event.message.text
-    result = "あああ"
+  
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text="buriburi"))
