@@ -1,6 +1,6 @@
 
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort,render_template,redirect
 import os
 
 from linebot import (
@@ -10,7 +10,11 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
+    MessageEvent, TextMessage,PostbackEvent,JoinEvent, TextSendMessage,TemplateSendMessage, ButtonsTemplate,
+    PostbackAction, MessageAction,
+    URIAction, DatetimePickerAction,
+    ConfirmTemplate, CarouselTemplate, CarouselColumn,
+    ImageCarouselTemplate, ImageCarouselColumn
 )
 
 app = Flask(__name__)
@@ -63,22 +67,20 @@ def handle_message(event):
         actions=[
             PostbackAction(
                 label='YES',
-                data='yes',
+                data='yes'
             ),
             MessageAction(
                 label='NO',
                 text='no')
         ]
     )
-)
 
-
-    word = event.message.text
+   
   
     line_bot_api.reply_message(
         event.reply_token,confirm_template_message
     )
-
+#  word = event.message.text
 
 if __name__ == "__main__":
 #    app.run()
