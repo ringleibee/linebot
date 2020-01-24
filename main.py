@@ -71,7 +71,7 @@ def handle_message(event):
             ),
             MessageAction(
                 label='のー',
-                text='おっぱい')
+                text='おーじ大好き')
         ]
         )
     )
