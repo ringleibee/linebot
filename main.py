@@ -63,15 +63,15 @@ def handle_message(event):
     confirm_template_message = TemplateSendMessage(
         alt_text='Confirm template',
         template=ConfirmTemplate(
-        text=profile.display_name+'さん\nアンケートにご協力ください。',
+        text=profile.display_name+'さん\n、元気？',
         actions=[
             PostbackAction(
-                label='YES',
+                label='うん',
                 data='yes'
             ),
             MessageAction(
-                label='NO',
-                text='no')
+                label='のー',
+                text='のー')
         ]
         )
     )
