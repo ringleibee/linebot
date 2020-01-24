@@ -51,13 +51,34 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    ### 相手のプロフィールを取得
+    profile = line_bot_api.get_profile(event.source.user_id)
+
+### コンファームテンプレートメッセージを作る
+
+    confirm_template_message = TemplateSendMessage(
+        alt_text='Confirm template',
+        template=ConfirmTemplate(
+        text=profile.display_name+'さん\nアンケートにご協力ください。',
+        actions=[
+            PostbackAction(
+                label='YES',
+                data='yes',
+            ),
+            MessageAction(
+                label='NO',
+                text='no')
+        ]
+    )
+)
 
 
     word = event.message.text
   
     line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text="buriburi"))
+        event.reply_token,confirm_template_message
+    )
+
 
 if __name__ == "__main__":
 #    app.run()
