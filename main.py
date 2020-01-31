@@ -28,44 +28,44 @@ handler = WebhookHandler(SECRET)
 
 def scraper():
 
-    def tencho():
-        url = "https://tenbai.blog/"
 
-        response = requests.get(url)
-        response.encoding = response.apparent_encoding
+    url = "https://tenbai.blog/"
 
-        bs = BeautifulSoup(response.text, 'html.parser')
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
 
-        print("*転売店長ブログ")
-        date = bs.find(class_="published")
-        title = bs.find(class_="entry-title")
-        link = bs.find(class_="entry-read").a.get("href")
-        result = "{}\n{}\n{}".format(date.text, title.text, link)
-        print(result)
+    bs = BeautifulSoup(response.text, 'html.parser')
 
-    def sneakerHack():
-        url = "https://sneakerhack.com/"
+    print("*転売店長ブログ")
+    date = bs.find(class_="published")
+    title = bs.find(class_="entry-title")
+    link = bs.find(class_="entry-read").a.get("href")
+    result = "{}\n{}\n{}".format(date.text, title.text, link)
+    return result
 
-        response = requests.get(url)
-        response.encoding = response.apparent_encoding
 
-        bs = BeautifulSoup(response.text, 'html.parser')
+    # url = "https://sneakerhack.com/"
 
-        print("*スニーカーハック")
-        d = bs.find(class_="entry-date")
-        title = bs.find(class_="title")
-        desc = bs.find(class_="excerpt")
-        link = bs.find(class_="num1").a.get("href")
-        # result = "{}\n{}\n{}".format(date.text, title.text, link)
-        # print(result)
-        
-        dWithoutpiriodo = d.text
-        date = dWithoutpiriodo.replace('.', '/')
+    # response = requests.get(url)
+    # response.encoding = response.apparent_encoding
 
-        result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
-        print(result)
+    # bs = BeautifulSoup(response.text, 'html.parser')
+
+    # print("*スニーカーハック")
+    # d = bs.find(class_="entry-date")
+    # title = bs.find(class_="title")
+    # desc = bs.find(class_="excerpt")
+    # link = bs.find(class_="num1").a.get("href")
+    # # result = "{}\n{}\n{}".format(date.text, title.text, link)
+    # # print(result)
     
-    return tencho(), sneakerHack()
+    # dWithoutpiriodo = d.text
+    # date = dWithoutpiriodo.replace('.', '/')
+
+    # result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
+    # print(result)
+
+
    
 
 
