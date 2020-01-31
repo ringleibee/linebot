@@ -2,6 +2,7 @@
 
 from flask import Flask, request, abort,render_template,redirect
 import os
+import scrape
 
 from linebot import (
     LineBotApi, WebhookHandler
@@ -26,9 +27,12 @@ SECRET = os.environ["MY_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
+
 @app.route("/")
 def hello_world():
-    return "hello world!"
+    yeah = scrape.scrape()
+    
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -47,44 +51,13 @@ def callback():
 
     return 'OK'
 
-# @handler.add(MessageEvent, message=TextMessage)
-# def handle_message(event):
-#     line_bot_api.reply_message(
-#         event.reply_token,
-#         TextSendMessage(text=event.message.text))
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    ### 相手のプロフィールを取得
-    profile = line_bot_api.get_profile(event.source.user_id)
-
-### コンファームテンプレートメッセージを作る
-
-    confirm_template_message = TemplateSendMessage(
-        alt_text='Confirm template',
-        template=ConfirmTemplate(
-        text=profile.display_name+'さん\n、元気？',
-        actions=[
-            PostbackAction(
-                label='うん',
-                data='yes'
-            ),
-            MessageAction(
-                label='のー',
-                text='おーじ大好き')
-        ]
-        )
-    )
-
-   
-  
     line_bot_api.reply_message(
-        event.reply_token,confirm_template_message,
-    )
- 
-#  word = event.message.text
+        event.reply_token,
+        TextSendMessage(text=event.message.text))
 
 if __name__ == "__main__":
-#    app.run()
+    app.run()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
