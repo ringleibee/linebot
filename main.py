@@ -3,6 +3,9 @@
 from flask import Flask, request, abort,render_template,redirect
 import os
 import scrape
+from bs4 import BeautifulSoup
+import requests
+from datetime import datetime
 
 from linebot import (
     LineBotApi, WebhookHandler
