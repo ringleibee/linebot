@@ -64,6 +64,8 @@ def scraper():
 
         result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
         return result
+    
+    return tencho(), sneakerHack()
    
 
 
