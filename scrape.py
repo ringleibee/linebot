@@ -9,13 +9,9 @@ response.encoding = response.apparent_encoding
 
 bs = BeautifulSoup(response.text, 'html.parser')
 
-def scrape():
-    date = bs.find(class_="published")
-    title = bs.find(class_="entry-title")
-    link = bs.find(class_="entry-read").a.get("href")
+date = bs.find(class_="published")
+title = bs.find(class_="entry-title")
+link = bs.find(class_="entry-read").a.get("href")
+result = "{}\n{}\n{}".format(date.text, title.text, link)
+print(result)
 
-
-    result = "{}\n{}\n{}".format(date.text, title.text, link)
-    print(result)
-
-scrape()
