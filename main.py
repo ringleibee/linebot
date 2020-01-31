@@ -2,7 +2,7 @@
 
 from flask import Flask, request, abort,render_template,redirect
 import os
-import scrape
+
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
@@ -33,7 +33,8 @@ handler = WebhookHandler(SECRET)
 
 @app.route("/")
 def hello_world():
-    yeah = scrape.scrape()
+    return "hello world!!"
+
     
 
 
