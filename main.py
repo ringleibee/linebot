@@ -1,10 +1,10 @@
 
 from flask import Flask, request, abort,render_template,redirect
 import os
-import scrape
 
-# from bs4 import BeautifulSoup
-# import requests
+
+from bs4 import BeautifulSoup
+import requests
 
 
 from linebot import (
@@ -46,19 +46,19 @@ def hello_world():
 
 
 @app.route("/")
-# def hello_world():
-#     url = "https://tenbai.blog/"
+def hello_world():
+    url = "https://tenbai.blog/"
 
-#     response = requests.get(url)
-#     response.encoding = response.apparent_encoding
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
 
-#     bs = BeautifulSoup(response.text, 'html.parser')
+    bs = BeautifulSoup(response.text, 'html.parser')
 
-#     date = bs.find(class_="published")
-#     title = bs.find(class_="entry-title")
-#     link = bs.find(class_="entry-read").a.get("href")
-#     result = "{}\n{}\n{}".format(date.text, title.text, link)
-#     return result
+    date = bs.find(class_="published")
+    title = bs.find(class_="entry-title")
+    link = bs.find(class_="entry-read").a.get("href")
+    result = "{}\n{}\n{}".format(date.text, title.text, link)
+    return result
 
 
 @app.route("/callback", methods=['POST'])
@@ -79,10 +79,12 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=scrape.scraper()))
+
+if TextMessage == "転売":
+    def handle_message(event):
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=scrape.scraper()))
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
