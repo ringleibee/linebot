@@ -26,7 +26,7 @@ SECRET = os.environ["MY_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
-def scraperTencho():
+def scraper():
 
     def tencho():
         url = "https://tenbai.blog/"
