@@ -2,8 +2,8 @@
 from flask import Flask, request, abort,render_template,redirect
 import os
 
-from bs4 import BeautifulSoup
-import requests
+# from bs4 import BeautifulSoup
+# import requests
 
 
 from linebot import (
