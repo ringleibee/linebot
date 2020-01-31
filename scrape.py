@@ -18,4 +18,4 @@ def scrape():
     result = "{}\n{}\n{}".format(date.text, title.text, link)
     print(result)
 
-
+scrape()

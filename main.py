@@ -32,7 +32,7 @@ handler = WebhookHandler(SECRET)
 
 
 @app.route("/")
-def hello_world():
+def hello_world()
     return "hello world!!"
 
     
