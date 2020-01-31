@@ -41,7 +41,7 @@ def scraper():
         title = bs.find(class_="entry-title")
         link = bs.find(class_="entry-read").a.get("href")
         result = "{}\n{}\n{}".format(date.text, title.text, link)
-        print(result)
+        return result
 
     def sneakerHack():
         url = "https://sneakerhack.com/"
@@ -61,13 +61,10 @@ def scraper():
         
         dWithoutpiriodo = d.text
         date = dWithoutpiriodo.replace('.', '/')
-        print(date)
-        print(title.text)
-        print(desc.text)
-        print(link)
-    
-    tencho()
-    sneakerHack()
+
+        result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
+        return result
+   
 
 
 
