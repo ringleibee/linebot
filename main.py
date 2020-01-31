@@ -29,6 +29,20 @@ SECRET = os.environ["MY_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
+def hello_world():
+    url = "https://tenbai.blog/"
+
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
+
+    bs = BeautifulSoup(response.text, 'html.parser')
+
+    date = bs.find(class_="published")
+    title = bs.find(class_="entry-title")
+    link = bs.find(class_="entry-read").a.get("href")
+    result = "{}\n{}\n{}".format(date.text, title.text, link)
+    return result
+
 
 @app.route("/")
 def hello_world():
@@ -67,7 +81,7 @@ def callback():
 def handle_message(event):
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=hello_world()))
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
