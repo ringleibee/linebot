@@ -69,7 +69,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    if TextMessage == "転売":
+    if event.message == "情報収集":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=scraper()))
