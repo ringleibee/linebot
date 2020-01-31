@@ -1,12 +1,8 @@
 
 from flask import Flask, request, abort,render_template,redirect
 import os
-
-
 from bs4 import BeautifulSoup
 import requests
-
-
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -30,19 +26,49 @@ SECRET = os.environ["MY_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
-def scraper():
-    url = "https://tenbai.blog/"
+def scraperTencho():
 
-    response = requests.get(url)
-    response.encoding = response.apparent_encoding
+    def tencho():
+        url = "https://tenbai.blog/"
 
-    bs = BeautifulSoup(response.text, 'html.parser')
+        response = requests.get(url)
+        response.encoding = response.apparent_encoding
 
-    date = bs.find(class_="published")
-    title = bs.find(class_="entry-title")
-    link = bs.find(class_="entry-read").a.get("href")
-    result = "{}\n{}\n{}".format(date.text, title.text, link)
-    return result
+        bs = BeautifulSoup(response.text, 'html.parser')
+
+        print("*転売店長ブログ")
+        date = bs.find(class_="published")
+        title = bs.find(class_="entry-title")
+        link = bs.find(class_="entry-read").a.get("href")
+        result = "{}\n{}\n{}".format(date.text, title.text, link)
+        print(result)
+
+    def sneakerHack():
+        url = "https://sneakerhack.com/"
+
+        response = requests.get(url)
+        response.encoding = response.apparent_encoding
+
+        bs = BeautifulSoup(response.text, 'html.parser')
+
+        print("*スニーカーハック")
+        d = bs.find(class_="entry-date")
+        title = bs.find(class_="title")
+        desc = bs.find(class_="excerpt")
+        link = bs.find(class_="num1").a.get("href")
+        # result = "{}\n{}\n{}".format(date.text, title.text, link)
+        # print(result)
+        
+        dWithoutpiriodo = d.text
+        date = dWithoutpiriodo.replace('.', '/')
+        print(date)
+        print(title.text)
+        print(desc.text)
+        print(link)
+    
+    tencho()
+    sneakerHack()
+
 
 
 @app.route("/")
