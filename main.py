@@ -30,7 +30,7 @@ SECRET = os.environ["MY_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
-def hello_world():
+def scraper():
     url = "https://tenbai.blog/"
 
     response = requests.get(url)
@@ -47,18 +47,7 @@ def hello_world():
 
 @app.route("/")
 def hello_world():
-    url = "https://tenbai.blog/"
-
-    response = requests.get(url)
-    response.encoding = response.apparent_encoding
-
-    bs = BeautifulSoup(response.text, 'html.parser')
-
-    date = bs.find(class_="published")
-    title = bs.find(class_="entry-title")
-    link = bs.find(class_="entry-read").a.get("href")
-    result = "{}\n{}\n{}".format(date.text, title.text, link)
-    return result
+    return "hello world"
 
 
 @app.route("/callback", methods=['POST'])
@@ -83,11 +72,11 @@ def handle_message(event):
     if TextMessage == "転売":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=scrape.scraper()))
-    else
-            line_bot_api.reply_message(
+            TextSendMessage(text=scraper()))
+    else:
+        line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="ha?")
+            TextSendMessage(text="ha?"))
 
 
 if __name__ == "__main__":
