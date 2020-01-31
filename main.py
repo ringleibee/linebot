@@ -4,7 +4,7 @@ import os
 
 from bs4 import BeautifulSoup
 import requests
-from datetime import datetime
+
 
 from linebot import (
     LineBotApi, WebhookHandler
