@@ -79,12 +79,16 @@ def callback():
     return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-
-if TextMessage == "転売":
-    def handle_message(event):
+def handle_message(event):
+    if TextMessage == "転売":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=scrape.scraper()))
+    else
+            line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="ha?")
+
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT"))
