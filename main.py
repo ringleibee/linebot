@@ -2,8 +2,8 @@
 from flask import Flask, request, abort,render_template,redirect
 import os
 
-# from bs4 import BeautifulSoup
-# import requests
+from bs4 import BeautifulSoup
+import requests
 
 
 from linebot import (
@@ -32,23 +32,18 @@ handler = WebhookHandler(SECRET)
 
 @app.route("/")
 def hello_world():
-    # url = "https://tenbai.blog/"
+    url = "https://tenbai.blog/"
 
-    # response = requests.get(url)
-    # response.encoding = response.apparent_encoding
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
 
-    # bs = BeautifulSoup(response.text, 'html.parser')
+    bs = BeautifulSoup(response.text, 'html.parser')
 
-    # date = bs.find(class_="published")
-    # title = bs.find(class_="entry-title")
-    # link = bs.find(class_="entry-read").a.get("href")
-    # result = "{}\n{}\n{}".format(date.text, title.text, link)
-    # return result
-
-    return "hello"
-
-
-    
+    date = bs.find(class_="published")
+    title = bs.find(class_="entry-title")
+    link = bs.find(class_="entry-read").a.get("href")
+    result = "{}\n{}\n{}".format(date.text, title.text, link)
+    return result
 
 
 @app.route("/callback", methods=['POST'])
@@ -75,6 +70,5 @@ def handle_message(event):
         TextSendMessage(text=event.message.text))
 
 if __name__ == "__main__":
-    app.run()
     port = int(os.getenv("PORT"))
     app.run(host="0.0.0.0", port=port)
