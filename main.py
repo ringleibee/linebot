@@ -44,26 +44,28 @@ def scraper():
     return result
 
 
-    # url = "https://sneakerhack.com/"
+def scrapo():
+    url = "https://sneakerhack.com/"
 
-    # response = requests.get(url)
-    # response.encoding = response.apparent_encoding
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
 
-    # bs = BeautifulSoup(response.text, 'html.parser')
+    bs = BeautifulSoup(response.text, 'html.parser')
 
-    # print("*スニーカーハック")
-    # d = bs.find(class_="entry-date")
-    # title = bs.find(class_="title")
-    # desc = bs.find(class_="excerpt")
-    # link = bs.find(class_="num1").a.get("href")
-    # # result = "{}\n{}\n{}".format(date.text, title.text, link)
-    # # print(result)
-    
-    # dWithoutpiriodo = d.text
-    # date = dWithoutpiriodo.replace('.', '/')
-
-    # result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
+    print("*スニーカーハック")
+    d = bs.find(class_="entry-date")
+    title = bs.find(class_="title")
+    desc = bs.find(class_="excerpt")
+    link = bs.find(class_="num1").a.get("href")
+    # result = "{}\n{}\n{}".format(date.text, title.text, link)
     # print(result)
+
+    dWithoutpiriodo = d.text
+    date = dWithoutpiriodo.replace('.', '/')
+
+    result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
+
+    print(result)
 
 
    
@@ -95,10 +97,14 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     textData = event.message.text
-    if textData in "情報収集":
+    if textData in "店長":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=scraper()))
+    elif textData in "スニーカー":
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=scrapo()))
     else:
         line_bot_api.reply_message(
             event.reply_token,

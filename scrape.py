@@ -19,11 +19,7 @@ link = bs.find(class_="num1").a.get("href")
 
 dWithoutpiriodo = d.text
 date = dWithoutpiriodo.replace('.', '/')
-print(date)
-print(title.text)
-print(desc.text)
-print(link)
 
-
+result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
 
 print(result)
