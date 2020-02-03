@@ -16,7 +16,7 @@ def src():
         title = bs.find(class_="entry-title")
         link = bs.find(class_="entry-read").a.get("href")
         result = "{}\n{}\n{}".format(date.text, title.text, link)
-        print(result)
+        return result
 
 
     def scrapo():
@@ -39,12 +39,11 @@ def src():
         date = dWithoutpiriodo.replace('.', '/')
 
         result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
-        print(result)
+        return result
 
-    a = scraper()
-    b = scrapo()
+    print(scraper())
+    print(scrapo())
 
-    return a, b
 
 
 src()
