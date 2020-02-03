@@ -65,8 +65,7 @@ def src():
         result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
         print(result)
 
-    scraper()
-    scrapo()
+    return scraper(),scrapo()
 
    
 
