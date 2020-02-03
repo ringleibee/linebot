@@ -108,7 +108,7 @@ def handle_message(event):
     else:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="ha?")))
+            TextSendMessage(text="ha?"))
 
 
 if __name__ == "__main__":
