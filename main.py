@@ -96,11 +96,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     textData = event.message.text
-    if textData in "店長":
+    if textData in "a":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=scraper()))
-    elif textData in "スニーカー":
+    elif textData in "a":
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=scrapo()))
