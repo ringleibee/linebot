@@ -26,48 +26,44 @@ SECRET = os.environ["MY_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(ACCESS_TOKEN)
 handler = WebhookHandler(SECRET)
 
-def scr():
+def scraper():
+    url = "https://tenbai.blog/"
 
-    def scraper():
-        url = "https://tenbai.blog/"
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
 
-        response = requests.get(url)
-        response.encoding = response.apparent_encoding
+    bs = BeautifulSoup(response.text, 'html.parser')
 
-        bs = BeautifulSoup(response.text, 'html.parser')
-
-        print("*転売店長ブログ")
-        date = bs.find(class_="published")
-        title = bs.find(class_="entry-title")
-        link = bs.find(class_="entry-read").a.get("href")
-        result = "{}\n{}\n{}".format(date.text, title.text, link)
-        return result
+    print("*転売店長ブログ")
+    date = bs.find(class_="published")
+    title = bs.find(class_="entry-title")
+    link = bs.find(class_="entry-read").a.get("href")
+    result = "{}\n{}\n{}".format(date.text, title.text, link)
+    return result
 
 
-    def scrapo():
-        url = "https://sneakerhack.com/"
+def scrapo():
+    url = "https://sneakerhack.com/"
 
-        response = requests.get(url)
-        response.encoding = response.apparent_encoding
+    response = requests.get(url)
+    response.encoding = response.apparent_encoding
 
-        bs = BeautifulSoup(response.text, 'html.parser')
+    bs = BeautifulSoup(response.text, 'html.parser')
 
-        print("*スニーカーハック")
-        d = bs.find(class_="entry-date")
-        title = bs.find(class_="title")
-        desc = bs.find(class_="excerpt")
-        link = bs.find(class_="num1").a.get("href")
-        # result = "{}\n{}\n{}".format(date.text, title.text, link)
-        # print(result)
+    print("*スニーカーハック")
+    d = bs.find(class_="entry-date")
+    title = bs.find(class_="title")
+    desc = bs.find(class_="excerpt")
+    link = bs.find(class_="num1").a.get("href")
+    # result = "{}\n{}\n{}".format(date.text, title.text, link)
+    # print(result)
 
-        dWithoutpiriodo = d.text
-        date = dWithoutpiriodo.replace('.', '/')
+    dWithoutpiriodo = d.text
+    date = dWithoutpiriodo.replace('.', '/')
 
-        result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
-        return result
+    result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
+    return result
 
-    scraper()
-    scrapo()
 
    
 
@@ -101,15 +97,18 @@ def handle_message(event):
     if textData in "店長":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=scr()))
+            TextSendMessage(text=scraper()))
     elif textData in "スニーカー":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=scr()))
+            TextSendMessage(text=scrapo()))
     else:
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text="ha?"))
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=scrapo()))
 
 
 if __name__ == "__main__":
