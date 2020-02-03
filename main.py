@@ -64,8 +64,7 @@ def scrapo():
     date = dWithoutpiriodo.replace('.', '/')
 
     result = "{}\n{}\n{}\n{}".format(date, title.text, desc.text, link)
-
-    print(result)
+    return result
 
 
    
