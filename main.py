@@ -105,11 +105,11 @@ def handle_message(event):
     elif textData in "スニーカー":
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=src()))
+            TextSendMessage(text="a"))
     else:
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text="ha?"))
+            TextSendMessage(text="aaa"))
 
 
 if __name__ == "__main__":
